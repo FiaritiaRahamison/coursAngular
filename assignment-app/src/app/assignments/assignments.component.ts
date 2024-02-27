@@ -68,7 +68,7 @@ assignmentSelectionne: Assignment|undefined;
   }
 
   assignmentClick(assignment: Assignment) {
-    console.log("CLICK SUR = " + assignment.nom);
+    console.log("CLICK SUR " + assignment.nom);
 
     this.assignmentSelectionne = assignment;
   }

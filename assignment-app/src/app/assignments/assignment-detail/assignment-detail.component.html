@@ -2,6 +2,11 @@
     <h1>Détail du devoir</h1>
     <mat-card-content>
         <mat-card-title>{{ assignmentTransmis.nom }}</mat-card-title>
+        @if (assignmentTransmis.estRendu === false) {
+            <mat-card-actions>
+                <mat-checkbox (click)="onAssignementRendu()"></mat-checkbox>
+            </mat-card-actions>
+        }
         <!-- <mat-card-subtitle {{ assignmentTransmis.dateRendu | date }}></mat-card-subtitle> -->
     </mat-card-content>
 }

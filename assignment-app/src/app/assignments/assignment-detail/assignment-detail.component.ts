@@ -18,4 +18,8 @@ import { MatCheckboxModule} from '@angular/material/checkbox';
 export class AssignmentDetailComponent {
   @Input()
   assignmentTransmis!: Assignment|undefined;
+
+  onAssignementRendu() {
+    this.assignmentTransmis!.estRendu = true;
+  }
 }
