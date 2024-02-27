@@ -4,13 +4,22 @@
 <table>
     <tbody>
         @for (assignment of assignments; track assignment.nom) {
-            @if (assignment.estRendu) {
-                <tr>
-                    <td>{{ assignment.nom }}</td>
-                    <td>{{ assignment.dateRendu }}</td>
-                    <td>{{ assignment.estRendu }}</td>
-                </tr>
-            }
+            <tr>
+                <td [ngClass] = "{'rendu': assignment.estRendu, 'nonRendu':!assignment.estRendu }">
+                    {{ assignment.nom }}
+                </td>
+                <td>{{ assignment.dateRendu }}</td>
+                
+                <td appRendu [ngStyle] = "{'background-color': assignment.estRendu ? 'green' :'red' }">
+                    @if (assignment.estRendu) {
+                        DEVOIR RENDU
+                    }
+                    @else {
+                        DEVOIR NON RENDU
+                    }
+                </td>
+                
+            </tr>
         }
     </tbody>
 </table>
