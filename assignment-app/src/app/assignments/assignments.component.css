@@ -4,16 +4,16 @@ table, tr, td {
     padding: 20px;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
 .rendu {
     color: green;
 }
 
 .nonRendu {
     color: red;
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    margin: 5px;
 }

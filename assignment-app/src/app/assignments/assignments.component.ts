@@ -9,6 +9,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 
 import { RenduDirective } from '../shared/rendu.directive';
 import { Assignment } from './assignment.model';
+import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 
 @Component({
   selector: 'app-assignments',
@@ -21,6 +22,7 @@ import { Assignment } from './assignment.model';
     MatInputModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    AssignmentDetailComponent
   ],
   templateUrl: './assignments.component.html',
   styleUrl: './assignments.component.css',
@@ -47,6 +49,7 @@ export class AssignmentsComponent {
   ];
   nomAssignment: string = "";
   dateRendu = undefined;
+assignmentSelectionne: Assignment|undefined;
 
   onSubmit(event: any) {
     if ((this.nomAssignment == '') || (this.dateRendu === undefined)) return;
@@ -62,6 +65,12 @@ export class AssignmentsComponent {
 
     console.log(newAssignment)
     this.assignments.push(newAssignment);
+  }
+
+  assignmentClick(assignment: Assignment) {
+    console.log("CLICK SUR = " + assignment.nom);
+
+    this.assignmentSelectionne = assignment;
   }
 }
 

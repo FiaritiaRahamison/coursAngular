@@ -1,28 +1,5 @@
 <p>{{ titre }}</p>
 
-<table>
-    <tbody>
-        @for (assignment of assignments; track assignment.nom) {
-            <tr>
-                <td [ngClass] = "{'rendu': assignment.estRendu, 'nonRendu':!assignment.estRendu }">
-                    {{ assignment.nom }}
-                </td>
-                <td>{{ assignment.dateRendu }}</td>
-                
-                <td appRendu [ngStyle] = "{'background-color': assignment.estRendu ? 'green' :'red' }">
-                    @if (assignment.estRendu) {
-                        DEVOIR RENDU
-                    }
-                    @else {
-                        DEVOIR NON RENDU
-                    }
-                </td>
-                
-            </tr>
-        }
-    </tbody>
-</table>
-
 <h1>Ajout d'un devoir</h1>
 <form ngForm #assignmentForm (submit)="onSubmit($event)">
     <mat-form-field>
@@ -39,3 +16,33 @@
 
     <button mat-stroked-button color="primary" [disabled]="nomAssignment=='' || dateRendu === undefined">Ajouter un devoir</button>
 </form>
+
+<h1>Liste des devoirs</h1>
+<table>
+    <tbody>
+        @for (assignment of assignments; track assignment.nom) {
+            <tr>
+                <td [ngClass] = "{'rendu': assignment.estRendu, 'nonRendu':!assignment.estRendu }" (click)="assignmentClick(assignment)">
+                    {{ assignment.nom }}
+                </td>
+                <td>{{ assignment.dateRendu | date}}</td>
+                
+                <td appRendu [ngStyle] = "{'background-color': assignment.estRendu ? 'green' :'red' }">
+                    @if (assignment.estRendu) {
+                        DEVOIR RENDU
+                    }
+                    @else {
+                        DEVOIR NON RENDU
+                    }
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- @if(assignmentSelected) {
+    <h2>assignment clické: {{assignmentSelectionne.name}}</h2>
+} -->
+
+<app-assignment-detail [assignmentTransmis]="assignmentSelectionne"></app-assignment-detail>
