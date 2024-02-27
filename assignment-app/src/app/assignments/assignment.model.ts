@@ -1,5 +1,5 @@
 export class Assignment {
     nom!: string;
-    dateRendu!: Date
-    estRendu!: boolean
+  dateRendu!: Date;
+  estRendu!: boolean;
 }

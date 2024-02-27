@@ -1,48 +1,58 @@
-<p>{{ titre }}</p>
+@if(formVisible) {
+<app-add-assignment
+  (nouvelAssignment)="ajouteAssignement($event)"
+></app-add-assignment>
+} @else {
+<div class="container">
+  <button mat-flat-button color="accent" (click)="onAddAssignmentBtnClick()"
+          class="btnAjout"
+  >
+    Ajouter Assignment
+  </button>
 
-<h1>Ajout d'un devoir</h1>
-<form ngForm #assignmentForm (submit)="onSubmit($event)">
-    <mat-form-field>
-        <input matInput [(ngModel)]="nomAssignment" placeholder="Nom"  name="nomAssignment">
-    </mat-form-field>
+  <h2>{{ titre }}</h2>
 
-    <mat-form-field>
-        <mat-label>Date de rendu</mat-label>
-        <input matInput [(ngModel)]="dateRendu" name="dateRendu" [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+  <mat-divider></mat-divider>
+  <mat-list>
+    @for(a of assignments; track a.nom) {
+    <mat-list-item (click)="assignmentClicke(a)">
+      <div [ngStyle]="{ color: a.estRendu ? 'green' : 'red' }">
+        <h3 matLine>{{ a.nom }}</h3>
+        <p matLine>estRendu: {{ a.estRendu }}</p>
+        <h3 matListItemTitle>{{ a.dateRendu | date }}</h3>
+        <p matListItemLine>{{ a.nom }} estRendu: {{ a.estRendu }}</p>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    }
+  </mat-list>
 
-    <button mat-stroked-button color="primary" [disabled]="nomAssignment=='' || dateRendu === undefined">Ajouter un devoir</button>
-</form>
+  <app-assignment-detail
+    [assignmentTransmis]="assignmentSelectionne"
+    (deleteAssignment)="onDeleteAssignment()"
+  ></app-assignment-detail>
+</div>
+}
 
-<h1>Liste des devoirs</h1>
+<!--
+<p>Avec Angular supérieur à la version 17</p>
 <table>
     <tbody>
-        @for (assignment of assignments; track assignment.nom) {
+    @for (a of assignments; track a.nom) {
+      <div [ngStyle]="{'color':getColor(a)}">
+      @if(a.estRendu) {
+        <tr>
+          <td>{{ a.nom }}</td>
+          <td>{{ a.dateRendu|date }}</td>
+          <td>{{ a.estRendu }}</td>
+        </tr>
+      } @else {
             <tr>
-                <td [ngClass] = "{'rendu': assignment.estRendu, 'nonRendu':!assignment.estRendu }" (click)="assignmentClick(assignment)">
-                    {{ assignment.nom }}
-                </td>
-                <td>{{ assignment.dateRendu | date}}</td>
-                
-                <td appRendu [ngStyle] = "{'background-color': assignment.estRendu ? 'green' :'red' }">
-                    @if (assignment.estRendu) {
-                        DEVOIR RENDU
+          <td>{{ a.nom }} NON RENDU !!!!</td>
+        </tr>
                     }
-                    @else {
-                        DEVOIR NON RENDU
-                    }
-                </td>
-                
-            </tr>
+    </div>
         }
     </tbody>
 </table>
-
-<!-- @if(assignmentSelected) {
-    <h2>assignment clické: {{assignmentSelectionne.name}}</h2>
-} -->
-
-<app-assignment-detail [assignmentTransmis]="assignmentSelectionne"></app-assignment-detail>
+-->

@@ -1,77 +1,84 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {provideNativeDateAdapter} from '@angular/material/core';
 
-import { RenduDirective } from '../shared/rendu.directive';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+
+import { RenduDirective } from "../shared/rendu.directive";
 import { Assignment } from './assignment.model';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
+import { AddAssignmentComponent } from "./add-assignment/add-assignment.component";
 
 @Component({
   selector: 'app-assignments',
   standalone: true,
-  imports: [
-    CommonModule,
-    RenduDirective,
-    FormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    AssignmentDetailComponent
-  ],
+    providers: [],
   templateUrl: './assignments.component.html',
   styleUrl: './assignments.component.css',
-  providers: [provideNativeDateAdapter()],
+    imports: [CommonModule, MatButtonModule, MatListModule, RenduDirective, AssignmentDetailComponent,
+      AddAssignmentComponent]
 })
-export class AssignmentsComponent {
-  titre = "Voici mon app sur les devoirs";
+export class AssignmentsComponent implements OnInit {
+  titre = 'Liste des assignments';
+  formVisible=false;
+
+  // Mémorisation de l'assignment cliqué
+  assignmentSelectionne:Assignment | undefined;
+
+
   assignments: Assignment[] = [
     {
-      nom: "Devoir 1",
+      nom:"Devoir Angular de Michel Buffa",
       dateRendu: new Date("2024-02-15"),
-      estRendu: false
+      estRendu:false
     },
     {
-      nom: "Devoir 2",
-      dateRendu: new Date("2024-02-20"),
-      estRendu: false
+      nom:"Devoir SQL3 de Serge Miranda",
+      dateRendu: new Date("2024-01-15"),
+      estRendu:true
     },
     {
-      nom: "Devoir 3",
-      dateRendu: new Date("2024-02-24"),
-      estRendu: true
+      nom:"Devoir BD de Mr Gabriel Mopolo",
+      dateRendu: new Date("2024-03-01"),
+      estRendu:false
     }
   ];
-  nomAssignment: string = "";
-  dateRendu = undefined;
-assignmentSelectionne: Assignment|undefined;
 
-  onSubmit(event: any) {
-    if ((this.nomAssignment == '') || (this.dateRendu === undefined)) return;
-
-    console.log("NOM ASSIGNMENT = " + this.nomAssignment);
-    console.log("DATE RENDU = " + this.dateRendu);
-
-    const newAssignment = {
-      nom: this.nomAssignment,
-      estRendu: false,
-      dateRendu: this.dateRendu
-    };
-
-    console.log(newAssignment)
-    this.assignments.push(newAssignment);
+  getColor(a:any) {
+    return a.estRendu ? 'green' : 'red';
   }
 
-  assignmentClick(assignment: Assignment) {
-    console.log("CLICK SUR " + assignment.nom);
+  ngOnInit() {
+    // appelée une seule fois à la création du composant
+    // on active le bouton au bout de 3 secondes
+    /*
+    setTimeout(() => {
+      this.boutonActive=true;
+    }, 3000);
+    */
+  }
 
-    this.assignmentSelectionne = assignment;
+
+  assignmentClicke(a:Assignment) {
+    console.log("Assignment cliqué: " + a.nom);
+
+    this.assignmentSelectionne = a;
+  }
+
+  onAddAssignmentBtnClick() {
+    this.formVisible = true;
+  }
+
+  ajouteAssignement(event:Assignment) {
+    this.assignments.push(event);
+    this.formVisible = false;
+  }
+
+  onDeleteAssignment() {
+    if (this.assignmentSelectionne) {
+      let pos = this.assignments.indexOf(this.assignmentSelectionne);
+      this.assignments.splice(pos, 1);
+      this.assignmentSelectionne = undefined;
+    }
   }
 }
-
-

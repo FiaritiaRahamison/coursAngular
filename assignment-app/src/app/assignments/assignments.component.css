@@ -4,16 +4,22 @@ table, tr, td {
     padding: 20px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    margin: 5px;
-}
-
-.rendu {
+.estRendu {
     color: green;
 }
 
 .nonRendu {
     color: red;
+  background-color: yellow;
+  border:2px dashed purple;
+  padding:5px;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnAjout {
+  align-self: flex-end;
+}
+
