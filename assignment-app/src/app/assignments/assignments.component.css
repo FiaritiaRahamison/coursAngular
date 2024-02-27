@@ -11,3 +11,9 @@ table, tr, td {
 .nonRendu {
     color: red;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
