@@ -1,0 +1,16 @@
+<p>assignments works!</p>
+<p>Titre = {{ titre }}</p>
+
+<table>
+    <tbody>
+        @for (assignment of assignments; track assignment.nom) {
+            @if (assignment.estRendu) {
+                <tr>
+                    <td>{{ assignment.nom }}</td>
+                    <td>{{ assignment.dateRendu }}</td>
+                    <td>{{ assignment.estRendu }}</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
