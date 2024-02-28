@@ -14,13 +14,13 @@
 
   <mat-divider></mat-divider>
   <mat-list>
-    @for(a of assignments; track a.nom) {
-    <mat-list-item (click)="assignmentClicke(a)">
-      <div [ngStyle]="{ color: a.estRendu ? 'green' : 'red' }">
-        <h3 matLine>{{ a.nom }}</h3>
-        <p matLine>estRendu: {{ a.estRendu }}</p>
-        <h3 matListItemTitle>{{ a.dateRendu | date }}</h3>
-        <p matListItemLine>{{ a.nom }} estRendu: {{ a.estRendu }}</p>
+    @for(assignment of assignments; track assignment.nom) {
+    <mat-list-item (click)="assignmentClicke(assignment)">
+      <div [ngStyle]="{ color: assignment.estRendu ? 'green' : 'red' }">
+        <h3 matLine>{{ assignment.nom }}</h3>
+        <p matLine>estRendu: {{ assignment.estRendu }}</p>
+        <h3 matListItemTitle>{{ assignment.dateRendu | date }}</h3>
+        <p matListItemLine>{{ assignment.nom }} estRendu: {{ assignment.estRendu }}</p>
       </div>
     </mat-list-item>
     <mat-divider></mat-divider>
@@ -38,17 +38,17 @@
 <p>Avec Angular supérieur à la version 17</p>
 <table>
     <tbody>
-    @for (a of assignments; track a.nom) {
-      <div [ngStyle]="{'color':getColor(a)}">
-      @if(a.estRendu) {
+    @for (assignment of assignments; track assignment.nom) {
+      <div [ngStyle]="{'color':getColor(assignment)}">
+      @if(assignment.estRendu) {
         <tr>
-          <td>{{ a.nom }}</td>
-          <td>{{ a.dateRendu|date }}</td>
-          <td>{{ a.estRendu }}</td>
+          <td>{{ assignment.nom }}</td>
+          <td>{{ assignment.dateRendu|date }}</td>
+          <td>{{ assignment.estRendu }}</td>
         </tr>
       } @else {
             <tr>
-          <td>{{ a.nom }} NON RENDU !!!!</td>
+          <td>{{ assignment.nom }} NON RENDU !!!!</td>
         </tr>
                     }
     </div>

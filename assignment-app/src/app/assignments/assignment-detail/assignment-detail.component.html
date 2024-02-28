@@ -8,17 +8,16 @@
       assignmentTransmis.dateRendu | date
     }}</mat-card-subtitle>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions class="container">
     @if(!assignmentTransmis.estRendu) {
        <mat-checkbox (click)="onAssignmentRendu()">Rendu</mat-checkbox>
     }
-    </mat-card-actions>
-    <mat-card-actions>
+   
+
       <button mat-raised-button color="warn" (click)="onDeleteAssignment()">
         Supprimer Assignment
       </button>
-    </mat-card-actions>
-
+ </mat-card-actions>
 </mat-card>
 
 }
